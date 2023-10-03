@@ -29,25 +29,31 @@ def hash(image, size):
     res = hex(res)
 
     return binarization_arr, res, ones_matrix
+def main():
+    image_addr = 'cat.jpg'
+    image_addr2 = 'cat2.jpg'
+    image = Image.open(image_addr)
+    array1, res1, arr_ones = hash(image, 8)
+    print(array1)
+    print(res1)
+    image2 = Image.open(image_addr2)
+    array2, res2, arr_ones2 = hash(image2, 8)
+    print(array2)
+    print(res2)
 
-image = Image.open('cat.jpg')
-array1, res1, arr_ones = hash(image, 8)
-print(array1)
-print(res1)
-image2 = Image.open('cat2.jpg')
-array2, res2, arr_ones2 = hash(image2, 8)
-print(array2)
-print(res2)
-
-hamming_ditance = arr_ones2 - arr_ones
-non = np.nonzero(hamming_ditance)
-match_percent = 100 - (non[0].size / array1.size * 100)
-print(match_percent, "% совпадения между сравниваемыми изображениями")
-print(non[0].size, "- расстояние Хэмминга в сравниваемых изображениях")
+    hamming_ditance = arr_ones2 - arr_ones
+    non = np.nonzero(hamming_ditance)
+    match_percent = 100 - (non[0].size / array1.size * 100)
+    print(match_percent, "% совпадения между сравниваемыми изображениями")
+    print(non[0].size, "- расстояние Хэмминга в сравниваемых изображениях")
 
 
-# вывод бинаризированных изображений размером size x size
-last = Image.fromarray(array1).convert('L')
-last.show()
-last = Image.fromarray(array2).convert('L')
-last.show()
+    # вывод бинаризированных изображений размером size x size
+    last = Image.fromarray(array1).convert('L')
+    last.show()
+
+    last = Image.fromarray(array2).convert('L')
+    last.show()
+
+if __name__ == '__main__':
+    main()
